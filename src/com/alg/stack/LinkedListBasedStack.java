@@ -28,8 +28,6 @@ public class LinkedListBasedStack<T> extends SinglyLinkedList<T> implements Stac
 		alertNotEmpty();
 		Node<T> header = SENTINAL.getNext();
 		SENTINAL.setNext(header.getNext());
-//		if(header == null)
-//			throw new IllegalStateException("stack is underflow");
 		size--;
 		return header.getValue();
 	}
