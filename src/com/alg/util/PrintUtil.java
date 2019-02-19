@@ -21,4 +21,8 @@ public class PrintUtil {
 		System.out.println(builder.toString());
 	}
 	
+	public static void print() {
+		
+	}
+	
 }

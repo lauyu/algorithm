@@ -12,5 +12,9 @@ public class RandomUtil {
 	public static int getInt(int noMoreThan) {
 		return random.nextInt(noMoreThan);
 	}
+	
+	public static int getInt() {
+		return random.nextInt();
+	}
 }
 
