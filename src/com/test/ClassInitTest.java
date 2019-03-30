@@ -20,6 +20,19 @@ public class ClassInitTest {
 	
 	public static void main(String[] args) {
 		System.out.println("exe  main ");
+		Inner inner = new Inner();
 	}
 
+	
+	static class Inner {
+		static Inner inner1 = new Inner();
+		static Inner inner2 = new Inner();
+		static {
+			System.out.println("static block");
+		}
+		public Inner() {
+			System.out.println("construct...");
+		}
+		
+	}
 }

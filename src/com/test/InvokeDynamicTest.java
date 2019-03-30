@@ -37,6 +37,9 @@ public class InvokeDynamicTest {
 		System.out.println(fieldMH.invoke(obj));
 //		MethodHandle mh2 = lookup.findVirtual(ReflectTest.class, "method1", strMT);
 //		mh2.invoke(`)
+//		CallSite
+		MethodHandle mh2 = mh1.asType(MethodType.methodType(void.class, Integer.class));
+		mh2.invoke(obj, "a");
 	}
 
 }

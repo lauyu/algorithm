@@ -1,5 +1,6 @@
 package com.test;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -10,8 +11,11 @@ import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.LockSupport;
 import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
 
 import com.sun.corba.se.impl.orbutil.concurrent.Sync;
+
+import sun.misc.Unsafe;
 
 import java.util.concurrent.locks.AbstractQueuedSynchronizer.ConditionObject;
 
@@ -37,10 +41,9 @@ public class Test {
 //		list.get(1);
 		
 //		list = new ArrayList<String>();
-		
 		List<? extends Integer> list = new ArrayList<>();
 //		list.add(new Integer(1));
-//		test(list);
+		test(null);
 //		Thread
 //		ReentrantLock lock = new ReentrantLock();
 //		System.out.println(lock.isHeldByCurrentThread());
@@ -67,11 +70,40 @@ public class Test {
 		Thread.sleep(2000l);
 		tPrint("signal contidon="+condition);
 		condition.signal();
+		Character character = Character.valueOf('\123');
+//		character.
+//		System.out.println(Integer.toBinaryString(Integer.valueOf(character.toString())));
+//		System.out.println('\123');
+//		ReentrantReadWriteLock
+	
 	}
 
 	
 	private static void test(Collection<Number> list) {
-		
+		Field f;
+		try {
+			f = Unsafe.class.getDeclaredField("theUnsafe");
+			f.setAccessible(true);
+	        Unsafe unsafe = (Unsafe) f.get(null);
+
+	        String[] array1 = new String[]{"abc", "efg", "hij", "kl", "mn", "xyz"};
+	        String[] array2 = new String[]{"abc1", "efg1", "hij1", "kl1", "mn1", "xyz1"};
+	        Class<?> ak = String[].class;
+	        int ABASE = unsafe.arrayBaseOffset(ak);
+	        int scale = unsafe.arrayIndexScale(ak);
+	        int ASHIFT = 31 - Integer.numberOfLeadingZeros(scale);
+	        String array11 = (String) unsafe.getObject(array1, ((long) 2 << ASHIFT) + ABASE);
+	        String array21 = (String) unsafe.getObject(array2, ((long) 2 << ASHIFT) + ABASE);
+	        System.out.println(ABASE);
+	        System.out.println(scale);
+	        System.out.println(ASHIFT);
+	        System.out.println(array11);
+	        System.out.println(array21);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	        
 	}
 	
 //	private static void test(Collection<String> list) {
