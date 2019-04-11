@@ -6,6 +6,10 @@ public class BaseTester {
 		System.out.println("Thread: t="+t+", id="+t.getId());
 	}
 
+	protected static void tPrint(String msg) {
+		System.out.println(Thread.currentThread()+", msg="+msg);
+	}
+	
 	protected static void tSleep(int t) {
 		try {
 			Thread.sleep(t);

@@ -43,6 +43,10 @@ public class Permutation {
 		return p;
 	}
 	
+	private void doPerm3(char seq, int n) {
+		
+	}
+	
 	private void swap(char[] seq, int from, int to) {
 		char s = seq[from];
 		seq[from] = seq[to];
