@@ -4,6 +4,8 @@ import java.security.KeyStore.PrivateKeyEntry;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.Callable;
+import java.util.concurrent.CompletionService;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -14,6 +16,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
+import java.util.stream.IntStream;
 
 public class ThreadPoolTest extends BaseTester {
 
@@ -21,38 +24,45 @@ public class ThreadPoolTest extends BaseTester {
 	private static AtomicInteger TASK_COUNTER = new AtomicInteger(1);
 	
 	public static void main(String[] args) {
-		Integer.toBinaryString(n);
-		ExecutorService executorService = new ThreadPoolExecutor(2, 7,
-                60L, TimeUnit.SECONDS,
-//                new SynchronousQueue<Runnable>(),
-                new ArrayBlockingQueue<>(4),
-//                new LinkedBlockingQueue<>(),
-                new ThreadFactory() {
-					@Override
-					public Thread newThread(Runnable r) {
-						return new Thread(r, "Test-Thread-"+T_COUNTER.getAndIncrement());
-					}
-				},
-                new RejectedExecutionHandler() {
-					@Override
-					public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
-						tPrint("xxxxxxxxxx, reject, T_COUNTER="+T_COUNTER.get()+", task="+r);
-					}
-				});
-//				executorService.submit(new StringCallable());
-//		SynchronousQueue<E>
-		for(int i=0;i<10;i++) {
-			executorService.submit(new SleepTask(2000,i));
-		}
+		CompletionService<String> cService = new ExecutorCompletionService(Executors.newFixedThreadPool(5));
+		IntStream.of(100, 3).forEach(t -> cService.);
+		
+		
+//		
+//		ExecutorService executorService = new ThreadPoolExecutor(2, 7,
+//                60L, TimeUnit.SECONDS,
+////                new SynchronousQueue<Runnable>(),
+//                new ArrayBlockingQueue<>(4),
+////                new LinkedBlockingQueue<>(),
+//                new ThreadFactory() {
+//					@Override
+//					public Thread newThread(Runnable r) {
+//						return new Thread(r, "Test-Thread-"+T_COUNTER.getAndIncrement());
+//					}
+//				},
+//                new RejectedExecutionHandler() {
+//					@Override
+//					public void rejectedExecution(Runnable r, ThreadPoolExecutor executor) {
+//						tPrint("xxxxxxxxxx, reject, T_COUNTER="+T_COUNTER.get()+", task="+r);
+//					}
+//				});
+//		for(int i=0;i<10;i++) {
+//			executorService.submit(new SleepTask(2000,i));
+//		}
 	}
 
 	
 	static class StringCallable implements Callable<String> {
-
+		private int t;
+		public StringCallable(int t) {
+			this.t=t;
+		}
 		@Override
 		public String call() throws Exception {
-			// TODO Auto-generated method stub
-			return null;
+			if(TASK_COUNTER != null) TASK_COUNTER.wait();
+			if(t > 0)
+				tSleep(t);
+			return "Task-sleep="+t;
 		}
 		
 	}
