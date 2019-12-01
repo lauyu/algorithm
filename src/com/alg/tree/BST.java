@@ -135,9 +135,9 @@ public class BST<K extends Comparable<K>, V> {
 		return null;	
 	}
 	
-	public V delete(K k) {
-		if(root == null) return null;
-	}
+//	public V delete(K k) {
+//		if(root == null) return null;
+//	}
 	
 	public V doDelete(BSTNode<K, V> parent, BSTNode<K, V> node, K k) {
 		if(node == null) return null;
@@ -147,7 +147,7 @@ public class BST<K extends Comparable<K>, V> {
 		} else if (c > 0) {
 			return doDelete(node, node.getLeft(), k);
 		} else {
-			deleteNode(node);
+//			deleteNode(node);
 			return node.getValue();
 		}
 	}
@@ -164,7 +164,7 @@ public class BST<K extends Comparable<K>, V> {
 				p = cur;
 				cur = cur.left;
 			}
-			parent.
+//			parent.
 		}
 		node.left = null;
 		node.right = null;

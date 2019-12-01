@@ -14,7 +14,7 @@ public class FunctionProgramTest {
 
 	public static void main(String[] args) {
 		List<String> result = Collections.synchronizedList(new ArrayList<>(64));
-		IntStream stream = IntStream.of(1, 2, 3, 4, 5, 
+//		IntStream stream = IntStream.of(1, 2, 3, 4, 5,
 
 	}
 

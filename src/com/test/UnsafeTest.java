@@ -19,7 +19,7 @@ public class UnsafeTest extends AbstractInspactor {
 	private void test(Child child) throws Exception {
 //		System.out.println(child.getiField_f());
 		System.out.println(Long.toBinaryString(child.lField_c));
-//		printOffset(k.getDeclaredField("iField_c"));
+		printOffset(k.getDeclaredField("iField_c"));
 //		printOffset(k.getDeclaredField("iField_c_2"));
 //		printOffset(k.getDeclaredField("lField_c"));
 //		

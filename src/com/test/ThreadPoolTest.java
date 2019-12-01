@@ -25,8 +25,6 @@ public class ThreadPoolTest extends BaseTester {
 	
 	public static void main(String[] args) {
 		CompletionService<String> cService = new ExecutorCompletionService(Executors.newFixedThreadPool(5));
-		IntStream.of(100, 3).forEach(t -> cService.);
-		
 		
 //		
 //		ExecutorService executorService = new ThreadPoolExecutor(2, 7,
